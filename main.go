@@ -5,6 +5,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"k9UI/subsections"
 	"os"
 )
 
@@ -95,12 +96,29 @@ func main() {
 	//	}),
 	//))
 	//
+	w.Resize(fyne.NewSize(640, 460))
 	w.Show()
 	app.Run()
 }
 
 func makeNav() fyne.CanvasObject {
-	tree := &widget.Tree{}
+
+	tree := &widget.Tree{
+		ChildUIDs: func(uid string) (c []string) {
+			c = subsections.SubsIndex[uid]
+			return
+		},
+		IsBranch: func(uid string) (b bool) {
+			_, b = subsections.SubsIndex[uid]
+			return
+		},
+		CreateNode: func(branch bool) fyne.CanvasObject {
+			return widget.NewLabel("Template Object")
+		},
+		UpdateNode: func(uid string, branch bool, node fyne.CanvasObject) {
+			node.(*widget.Label).SetText(uid)
+		},
+	}
 
 	return container.NewBorder(nil, nil, nil, nil, tree)
 }
