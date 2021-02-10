@@ -6,8 +6,8 @@ import (
 	"fyne.io/fyne/v2/widget"
 	"github.com/vrischmann/envconfig"
 
-	"github.com/Nortsx/k8UI/internal/config"
-	"github.com/Nortsx/k8UI/internal/ui/subsections"
+	"github.com/k8UI/k8UI/internal/config"
+	"github.com/k8UI/k8UI/internal/ui/subsections"
 )
 
 const AppName = "k8UI"
