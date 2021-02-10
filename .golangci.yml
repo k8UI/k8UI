@@ -1,0 +1,107 @@
+run:
+  deadline: 1m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - internal/generated
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: false
+  govet:
+    check-shadowing: true
+    settings:
+      printf:
+        funcs:
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
+          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
+  golint:
+    min-confidence: 0.8
+  gofmt:
+    simplify: true
+  gocyclo:
+    min-complexity: 15
+  maligned:
+    suggest-new: true
+  dupl:
+    threshold: 100
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  misspell:
+    locale: US
+  unused:
+    check-exported: false
+  unparam:
+    check-exported: true
+  prealloc:
+    simple: true
+    range-loops: true
+    for-loops: false
+  lll:
+    line-length: 170
+  funlen:
+    lines: 100
+    statements: 50
+  goimports:
+    local-prefixes: bb.delivery-club.ru/cart
+  nakedret:
+    max-func-lines: 30
+
+linters:
+  disable-all: true
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - unused
+    - gosimple
+    - structcheck
+    - varcheck
+    - ineffassign
+    - deadcode
+    - golint
+    - gosec
+    - unconvert
+    - goconst
+    - misspell
+    - unparam
+    - prealloc
+    - scopelint
+    - gochecknoinits
+    - gocritic
+    - dupl
+    - maligned
+    - gocyclo
+    - stylecheck
+    - gocognit
+    - goimports
+    - lll
+    - funlen
+    - whitespace
+    - nakedret
+    - bodyclose
+  fast: false
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - scopelint
+        - funlen
+
+  max-per-linter: 0
+  max-same-issues: 0
+  new: false
