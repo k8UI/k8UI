@@ -38,9 +38,11 @@ func NewWindow(a fyne.App) *WindowLayout {
 }
 
 func makeNav() fyne.CanvasObject {
+
 	tree := &widget.Tree{
 		ChildUIDs: func(uid string) (c []string) {
-			c = subsections.SubsIndex[uid]
+			//c = subsections.SubsIndex[uid]
+			c = subsections.GetSub(uid)
 			return
 		},
 		IsBranch: func(uid string) (b bool) {
@@ -55,5 +57,13 @@ func makeNav() fyne.CanvasObject {
 		},
 	}
 
-	return container.NewBorder(nil, nil, nil, nil, tree)
+	button := &widget.Button{
+		Text: "Test",
+		OnTapped: func() {
+			subsections.AddSub()
+			tree.Refresh()
+		},
+	}
+
+	return container.NewBorder(nil, button, nil, nil, tree)
 }

@@ -8,5 +8,5 @@ require (
 	k8s.io/apimachinery v0.17.0
 	k8s.io/client-go v0.17.0
 )
-replace github.com/Nortsx/k8UI => github.com/amnid/k8UI init_project_structure
-replace github.com/Nortsx/k8UI/cmd => github.com/amnid/k8UI/cmd init_project_structure
+//replace github.com/Nortsx/k8UI => github.com/amnid/k8UI init_project_structure
+//replace github.com/Nortsx/k8UI/cmd => github.com/amnid/k8UI/cmd init_project_structure
