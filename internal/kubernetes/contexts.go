@@ -31,7 +31,7 @@ func GetContexts() []string {
 	configYaml, _ := os.Open(*kubeconfig)
 	byteValue, _ := ioutil.ReadAll(configYaml)
 
-	path, err := yaml.PathString("$.clusters[*].name")
+	path, err := yaml.PathString("$.contexts[*].name")
 	if err != nil {
 		return nil
 	}
