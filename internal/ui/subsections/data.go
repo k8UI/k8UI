@@ -1,5 +1,7 @@
 package subsections
 
+import "github.com/k8UI/k8UI/internal/kubernetes"
+
 var SubsIndex = map[string][]string{
 	"": {"Context1", "Context2", "Context3"},
 	// "collections": {"list", "table", "tree"},
@@ -8,7 +10,7 @@ var SubsIndex = map[string][]string{
 }
 
 func GetSub(uid string) []string {
-	return SubsIndex[uid]
+	return kubernetes.GetContexts()
 }
 
 func AddSub() {

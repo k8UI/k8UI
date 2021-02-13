@@ -4,6 +4,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/k8UI/k8UI/internal/kubernetes"
 	"github.com/vrischmann/envconfig"
 
 	"github.com/k8UI/k8UI/internal/config"
@@ -60,8 +61,7 @@ func makeNav() fyne.CanvasObject {
 	button := &widget.Button{
 		Text: "Test",
 		OnTapped: func() {
-			subsections.AddSub()
-			tree.Refresh()
+			kubernetes.GetContexts()
 		},
 	}
 
