@@ -61,7 +61,7 @@ func makeNav() fyne.CanvasObject {
 	button := &widget.Button{
 		Text: "Test",
 		OnTapped: func() {
-			kubernetes.GetContexts()
+			kubernetes.GetNamespacesForContext("")
 		},
 	}
 

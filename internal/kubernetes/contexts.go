@@ -21,9 +21,9 @@ func homeDir() string {
 func GetContexts() []string {
 	if kubeconfig == nil {
 		if home := homeDir(); home != "" {
-			kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+			kubeconfig = flag.String("contextreader", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
 		} else {
-			kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+			kubeconfig = flag.String("contextreader", "", "absolute path to the kubeconfig file")
 		}
 		flag.Parse()
 	}
