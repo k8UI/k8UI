@@ -4,10 +4,11 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
-	"github.com/vrischmann/envconfig"
 
 	"github.com/k8UI/k8UI/internal/config"
 	"github.com/k8UI/k8UI/internal/ui/subsections"
+
+	"github.com/vrischmann/envconfig"
 )
 
 const AppName = "k8UI"
@@ -28,7 +29,7 @@ func NewWindow(a fyne.App) *WindowLayout {
 	content.Add(widget.NewButton("Test", func() {}))
 	split := container.NewHSplit(makeNav(), content)
 	w.SetContent(split)
-	w.Resize(fyne.NewSize(640, 460))
+	w.Resize(fyne.NewSize(1024, 800))
 	w.Show()
 
 	return &WindowLayout{
@@ -38,9 +39,11 @@ func NewWindow(a fyne.App) *WindowLayout {
 }
 
 func makeNav() fyne.CanvasObject {
+
 	tree := &widget.Tree{
 		ChildUIDs: func(uid string) (c []string) {
-			c = subsections.SubsIndex[uid]
+			//c = subsections.SubsIndex[uid]
+			c = subsections.GetSub(uid)
 			return
 		},
 		IsBranch: func(uid string) (b bool) {
@@ -55,5 +58,12 @@ func makeNav() fyne.CanvasObject {
 		},
 	}
 
-	return container.NewBorder(nil, nil, nil, nil, tree)
+	button := &widget.Button{
+		Text: "Test",
+		OnTapped: func() {
+			//kubernetes.GetNamespacesForContext("")
+		},
+	}
+
+	return container.NewBorder(nil, button, nil, nil, tree)
 }
