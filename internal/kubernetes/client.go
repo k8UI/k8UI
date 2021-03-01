@@ -8,24 +8,30 @@ import (
 
 var client *kubernetes.Clientset
 
-func getConfig(configPath *string) *rest.Config {
+func getConfig(configPath *string) (*rest.Config, error) {
 	config, err := clientcmd.BuildConfigFromFlags("", *configPath)
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
 
-	return config
+	return config, nil
 }
 
-func getClient(config *rest.Config) *kubernetes.Clientset {
+func getClient(config *rest.Config) (*kubernetes.Clientset, error) {
 	client, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
 
-	return client
+	return client, nil
 }
 
-func GetClient() *kubernetes.Clientset {
-	return getClient(getConfig(GetConfigPath("kubeconfig")))
+func GetClient() (*kubernetes.Clientset, error) {
+	config, err := getConfig(GetConfigPath("kubeconfig"))
+
+	if err != nil {
+		return nil, err
+	}
+
+	return getClient(config)
 }
