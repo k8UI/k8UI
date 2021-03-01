@@ -10,7 +10,11 @@ var SubsIndex = map[string][]string{
 }
 
 func GetSub(uid string) []string {
-	return kubernetes.GetContexts()
+	contexts, err := kubernetes.GetContexts()
+	if err != nil {
+		print("Error is " + err.Error())
+	}
+	return contexts
 }
 
 func AddSub() {

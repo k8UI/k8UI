@@ -6,7 +6,6 @@ import (
 	"fyne.io/fyne/v2/widget"
 
 	"github.com/k8UI/k8UI/internal/config"
-	"github.com/k8UI/k8UI/internal/kubernetes"
 	"github.com/k8UI/k8UI/internal/ui/subsections"
 
 	"github.com/vrischmann/envconfig"
@@ -30,7 +29,7 @@ func NewWindow(a fyne.App) *WindowLayout {
 	content.Add(widget.NewButton("Test", func() {}))
 	split := container.NewHSplit(makeNav(), content)
 	w.SetContent(split)
-	w.Resize(fyne.NewSize(640, 460))
+	w.Resize(fyne.NewSize(1024, 800))
 	w.Show()
 
 	return &WindowLayout{
@@ -62,7 +61,7 @@ func makeNav() fyne.CanvasObject {
 	button := &widget.Button{
 		Text: "Test",
 		OnTapped: func() {
-			kubernetes.GetNamespacesForContext("")
+			//kubernetes.GetNamespacesForContext("")
 		},
 	}
 
