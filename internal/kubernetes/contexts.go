@@ -2,10 +2,13 @@ package kubernetes
 
 import (
 	"flag"
+
 	"github.com/goccy/go-yaml"
 	"io/ioutil"
+
 	"os"
 	"path/filepath"
+
 	"strings"
 )
 
@@ -28,17 +31,23 @@ func GetContexts() []string {
 		flag.Parse()
 	}
 
-	configYaml, _ := os.Open(*kubeconfig)
-	byteValue, _ := ioutil.ReadAll(configYaml)
+	configYaml, err := os.Open(*kubeconfig)
+	if err != nil {
+		return nil //TODO some interface for sending errors to FE?
+	}
+
+	byteValue, err := ioutil.ReadAll(configYaml)
+	if err != nil {
+		return nil
+	}
 
 	path, err := yaml.PathString("$.contexts[*].name")
 	if err != nil {
 		return nil
 	}
-	s := string(byteValue)
 
 	var names []string
-	if err := path.Read(strings.NewReader(s), &names); err != nil {
+	if err := path.Read(strings.NewReader(string(byteValue)), &names); err != nil {
 		return nil
 	}
 	defer configYaml.Close()
