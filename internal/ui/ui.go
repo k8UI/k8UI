@@ -4,6 +4,7 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/k8UI/k8UI/internal/kubernetes"
 
 	"github.com/k8UI/k8UI/internal/config"
 	"github.com/k8UI/k8UI/internal/ui/subsections"
@@ -43,7 +44,11 @@ func makeNav() fyne.CanvasObject {
 	tree := &widget.Tree{
 		ChildUIDs: func(uid string) (c []string) {
 			//c = subsections.SubsIndex[uid]
-			c = subsections.GetSub(uid)
+			if uid == "" {
+				c = subsections.GetSub(uid)
+			} else {
+				c, _ = kubernetes.GetNamespaceNames(&uid)
+			}
 			return
 		},
 		IsBranch: func(uid string) (b bool) {

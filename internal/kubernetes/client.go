@@ -18,9 +18,13 @@ func getConfig(configPath *string) (*rest.Config, error) {
 }
 
 func getClient(config *rest.Config) (*kubernetes.Clientset, error) {
-	client, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		return nil, err
+	var err error
+
+	if client == nil {
+		client, err = kubernetes.NewForConfig(config)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return client, nil
